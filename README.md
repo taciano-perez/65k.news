@@ -1,17 +1,23 @@
 # 65k.news
 
-A simplified news aggregator designed for vintage computers and text-based browsers. It fetches top headlines from [thenewsapi.com](https://thenewsapi.com) and displays them in a lightweight HTML 4.01 format.
+A simplified news aggregator designed for vintage computers and text-based browsers. It fetches articles from the [Vox.com RSS feed](https://www.vox.com/rss/index.xml) and displays them in a strictly lightweight HTML format.
 
 ## Design Philosophy
 
-*   **Simplicity:** No CSS, no JavaScript, no images (except external favicons if supported).
-*   **Compatibility:** Valid HTML 4.01 Strict. Should render correctly on almost any browser from the 90s onwards (Netscape Navigator, Internet Explorer 3+, Mosaic, Lynx, etc.).
-*   **Performance:** Extremely lightweight payload for slow connections.
+*   **Simplicity:** No CSS, no JavaScript, no images, no colors.
+*   **Compatibility:** Minimalist HTML designed to render correctly on browsers from the early 90s (Netscape 1.0, Mosaic, Lynx, etc.).
+*   **Performance:** Extremely small payload, stripping all embellishments to focus purely on content.
+
+## Features
+
+*   Headline listing from Vox RSS.
+*   Internal article proxy that strips all non-essential HTML tags.
+*   Removes links, forms, images, and styling from article bodies.
+*   Displays author bylines and clear navigation.
 
 ## Prerequisites
 
 *   Python 3.6+
-*   An API key from [thenewsapi.com](https://thenewsapi.com) (Free tier available)
 
 ## Installation
 
@@ -25,17 +31,6 @@ A simplified news aggregator designed for vintage computers and text-based brows
     ```bash
     pip install -r requirements.txt
     ```
-
-3.  Configure your API key:
-    *   Copy `.env.example` to `.env`:
-        ```bash
-        cp .env.example .env
-        # or on Windows: copy .env.example .env
-        ```
-    *   Open `.env` and paste your API key:
-        ```
-        API_TOKEN=your_actual_api_token_here
-        ```
 
 ## Usage
 
@@ -59,5 +54,5 @@ python -m unittest test_app.py
 
 ## Credits
 
-*   Powered by [thenewsapi.com](https://thenewsapi.com)
+*   Content provided by [Vox.com](https://www.vox.com)
 *   Inspired by [68k.news](https://github.com/ActionRetro/68k-news) by ActionRetro
