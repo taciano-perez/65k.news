@@ -1,35 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
-    <title>65k.news</title>
+    <title>65k.news - Vox Edition</title>
 </head>
-<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080">
+<body >
     <table width="100%" border="0" cellspacing="0" cellpadding="5">
         <tr>
-            <td bgcolor="#CCCCCC">
+            <td >
                 <h1>65k.news</h1>
-                <small>News for the rest of us.</small>
+                <small>Vox.com simplified for vintage web.</small>
             </td>
         </tr>
     </table>
     
-    <p>
-        <a href="/">Top Headlines</a> | 
-        <a href="/?cat=tech">Tech</a> | 
-        <a href="/?cat=science">Science</a> | 
-        <a href="/?cat=business">Business</a> | 
-        <a href="/?cat=entertainment">Entertainment</a>
-    </p>
-
     <hr>
 
     {% if articles %}
         <ul>
         {% for article in articles %}
             <li>
-                <b><a href="{{ article.url }}">{{ article.title }}</a></b><br>
-                <small>{{ article.source }} - {{ article.published_at | string | truncate(10, True, '') }}</small><br>
-                {{ article.description }}
+                <b><a href="{{ article.proxy_url }}">{{ article.title }}</a></b><br>
+                <small>{{ article.published_at }}</small>
                 <br><br>
             </li>
         {% endfor %}
@@ -40,7 +31,7 @@
 
     <hr>
     <center>
-        <small>Powered by thenewsapi.com | <a href="https://github.com/ActionRetro/68k-news">Inspired by 68k.news</a></small>
+        <small>Powered by Vox RSS | <a href="https://github.com/ActionRetro/68k-news">Inspired by 68k.news</a></small>
     </center>
 </body>
 </html>
