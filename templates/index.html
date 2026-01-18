@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+    <title>65k.news</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080">
+    <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+            <td bgcolor="#CCCCCC">
+                <h1>65k.news</h1>
+                <small>News for the rest of us.</small>
+            </td>
+        </tr>
+    </table>
+    
+    <p>
+        <a href="/">Top Headlines</a> | 
+        <a href="/?cat=tech">Tech</a> | 
+        <a href="/?cat=science">Science</a> | 
+        <a href="/?cat=business">Business</a> | 
+        <a href="/?cat=entertainment">Entertainment</a>
+    </p>
+
+    <hr>
+
+    {% if articles %}
+        <ul>
+        {% for article in articles %}
+            <li>
+                <b><a href="{{ article.url }}">{{ article.title }}</a></b><br>
+                <small>{{ article.source }} - {{ article.published_at | string | truncate(10, True, '') }}</small><br>
+                {{ article.description }}
+                <br><br>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+
+    <hr>
+    <center>
+        <small>Powered by thenewsapi.com | <a href="https://github.com/ActionRetro/68k-news">Inspired by 68k.news</a></small>
+    </center>
+</body>
+</html>
