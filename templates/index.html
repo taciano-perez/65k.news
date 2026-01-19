@@ -1,37 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
-    <title>65k.news - Vox Edition</title>
+    <title>65k.news</title>
 </head>
 <body >
-    <table width="100%" border="0" cellspacing="0" cellpadding="5">
-        <tr>
-            <td >
-                <h1>65k.news</h1>
-                <small>Vox.com simplified for vintage web.</small>
-            </td>
-        </tr>
-    </table>
-    
+    <center>
+        <h1>65k.news</h1>
+        <small>News with simplified HTML for 8-bit computers.</small>
+    </center>
     <hr>
-
     {% if articles %}
-        <ul>
         {% for article in articles %}
-            <li>
                 <b><a href="{{ article.proxy_url }}">{{ article.title }}</a></b><br>
-                <small>{{ article.published_at }}</small>
+                <small>Posted on <span class="date" data-iso="{{ article.published_iso }}">{{ article.published_at }}</span></small>
                 <br><br>
-            </li>
         {% endfor %}
-        </ul>
     {% else %}
         <p>No articles found.</p>
     {% endif %}
-
     <hr>
     <center>
-        <small>Powered by Vox RSS | <a href="https://github.com/ActionRetro/68k-news">Inspired by 68k.news</a></small>
+        <small>Powered by Vox RSS</small>
     </center>
+<script>
+(function() {
+    var dates = document.querySelectorAll('.date');
+    for (var i = 0; i < dates.length; i++) {
+        var el = dates[i];
+        var iso = el.getAttribute('data-iso');
+        if (iso) {
+            var d = new Date(iso);
+            if (!isNaN(d.getTime())) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var day = d.getDate();
+                var month = months[d.getMonth()];
+                var year = d.getFullYear();
+                var hours = d.getHours();
+                var minutes = "0" + d.getMinutes();
+                var formatted = day + ' ' + month + ' ' + year + ' | ' + hours + ':' + minutes.substr(-2);
+                el.textContent = formatted;
+            }
+        }
+    }
+})();
+</script>
 </body>
 </html>

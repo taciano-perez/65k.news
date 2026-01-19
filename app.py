@@ -3,6 +3,8 @@ import feedparser
 from flask import Flask, render_template, request
 from bs4 import BeautifulSoup
 from urllib.parse import quote
+from time import mktime
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -35,9 +37,16 @@ def clean_html(html_content):
     # But let's be safe.
     
     if soup.body:
-        return soup.body.decode_contents()
+        content = soup.body.decode_contents()
     else:
-        return str(soup)
+        content = str(soup)
+    
+    # Normalize curly quotes and replace non-breaking spaces
+    content = content.replace('&nbsp;', ' ').replace('\xa0', ' ')
+    content = content.replace('“', '"').replace('”', '"').replace('‘', "'").replace('’', "'")
+    
+    # Escape double quotes as requested
+    return content.replace('"', '&quot;')
 
 @app.route("/")
 def index():
@@ -45,10 +54,16 @@ def index():
         feed = feedparser.parse(RSS_FEED_URL)
         articles = []
         for entry in feed.entries:
+            published_iso = entry.published
+            if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                dt = datetime.fromtimestamp(mktime(entry.published_parsed))
+                published_iso = dt.isoformat()
+
             articles.append({
                 "title": entry.title,
                 "url": entry.link,
                 "published_at": entry.published,
+                "published_iso": published_iso,
                 "proxy_url": f"/article?url={quote(entry.link)}"
             })
         
