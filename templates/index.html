@@ -7,6 +7,13 @@
     <center>
         <h1>65k.news</h1>
         <small>News with simplified HTML for 8-bit computers.</small>
+        {% if feed_toggles %}
+        <p>
+            {% for toggle in feed_toggles %}
+                <a href="{{ toggle.url }}">[{{ 'x' if toggle.enabled else ' ' }}] {{ toggle.name }}</a>&nbsp;
+            {% endfor %}
+        </p>
+        {% endif %}
     </center>
     <hr>
     {% if articles %}
